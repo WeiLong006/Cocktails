@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export interface Response {
+  access: any;
+  refresh: any;
+  role: any;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  data = {};
+  fetchData = { access: String };
   email = '';
   userDetails = {};
   password = '';
+  accessToken = '';
+  refreshToken = '';
+  role = '';
+  display = 'block';
 
   constructor(private http: HttpClient) {}
 
@@ -21,19 +31,27 @@ export class HomeComponent implements OnInit {
         headers: headers,
       })
       .subscribe((data) => {
-        this.data = data;
-        console.log(this.data);
+        console.log(data);
       });
   }
 
   logIn() {
     let headers = new HttpHeaders({});
     this.http
-      .post('http://127.0.0.1:5001/users/sign-in', {
+      .post<Response>('http://127.0.0.1:5001/users/sign-in', {
         email: this.email,
         password: this.password,
       })
       .subscribe((data) => {
+        this.accessToken = data.access;
+        this.refreshToken = data.refresh;
+        this.role = data.role;
+        if (this.accessToken) {
+          this.display = 'none';
+        }
+        console.log(this.accessToken);
+        console.log(this.refreshToken);
+        console.log(this.role);
         console.log(data);
       });
   }

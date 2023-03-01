@@ -1,6 +1,20 @@
 <h1>Your Cocktail guide</h1>
-<input type="text" (input)="getUserEmail($event)" placeholder="Email" />
+<input
+  type="text"
+  (input)="getUserEmail($event)"
+  placeholder="Email"
+  [style.display]="display"
+/>
 <br />
-<input type="text" (input)="getUserPassword($event)" placeholder="Password" />
+<input
+  type="text"
+  (input)="getUserPassword($event)"
+  placeholder="Password"
+  [style.display]="display"
+/>
 
-<button (click)="submitUserEmail()">Log in here!</button>
+<button (click)="submitUserEmail()" [style.display]="display">
+  Log in here!
+</button>
+
+<app-admin-page *ngIf="role === 'admin'"></app-admin-page>
