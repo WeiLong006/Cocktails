@@ -4,3 +4,8 @@
   (input)="getInput($event)"
 />
 <button (click)="getSearch()">Search!</button>
+
+<div *ngFor="let result of searchResult">
+  <p>{{ result.name }}</p>
+  <img [src]="result.image" alt="" />
+</div>
