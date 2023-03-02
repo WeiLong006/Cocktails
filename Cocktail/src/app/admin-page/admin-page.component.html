@@ -6,9 +6,11 @@
 <button (click)="getSearch()">Search!</button>
 <button (click)="searchFavourites()">Display favourites</button>
 
-<div *ngFor="let result of searchResult">
-  <p>{{ result.name }}</p>
-  <img [src]="result.image" alt="" (click)="getModal(result)" />
+<div *ngIf="!favouritesDisplay">
+  <div *ngFor="let result of searchResult">
+    <p>{{ result.name }}</p>
+    <img [src]="result.image" alt="" (click)="getModal(result)" />
+  </div>
 </div>
 
 <!-- Modal -->
@@ -21,13 +23,15 @@
     <label *ngIf="clicked.ingredient4"> {{ clicked.ingredient4 }} </label><br />
     <label *ngIf="clicked.ingredient5"> {{ clicked.ingredient5 }} </label><br />
     <img class="modalImage" [src]="clicked.image" alt="" /> <br />
-    <button>Add to favourites</button>
+    <button (click)="createFavourites(clicked)">Add to favourites</button>
     <button (click)="closeModal()">Close</button>
   </div>
 </div>
 
 <!-- Favourites -->
-<div *ngFor="let fave of favourites">
-  <p>{{ fave.name }}</p>
-  <img [src]="fave.image" alt="" (click)="getModal(fave)" />
+<div *ngIf="favouritesDisplay">
+  <div *ngFor="let fave of favourites">
+    <p>{{ fave.name }}</p>
+    <img [src]="fave.image" alt="" (click)="getModal(fave)" />
+  </div>
 </div>
