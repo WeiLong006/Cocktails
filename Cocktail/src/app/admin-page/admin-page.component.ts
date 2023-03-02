@@ -107,6 +107,7 @@ export class AdminPageComponent {
         image: e.image,
       })
       .subscribe((data) => {
+        this.searchFavourites();
         console.log(data);
       });
   }
@@ -117,6 +118,7 @@ export class AdminPageComponent {
         email: this.email,
       })
       .subscribe((data) => {
+        this.searchFavourites();
         console.log(data);
       });
   }
