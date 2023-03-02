@@ -90,4 +90,34 @@ export class AdminPageComponent {
         console.log(data);
       });
   }
+
+  deleteFavourites(e: any) {
+    this.http
+      .post<Response>('http://127.0.0.1:5001/fave/delete-fave', {
+        email: this.email,
+        name: e.name,
+        category: e.category,
+        instruction: e.instruction,
+        glass: e.glass,
+        ingredient1: e.ingredient1,
+        ingredient2: e.ingredient2,
+        ingredient3: e.ingredient3,
+        ingredient4: e.ingredient4,
+        ingredient5: e.ingredient5,
+        image: e.image,
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  deleteAllFavourites() {
+    this.http
+      .post<Response>('http://127.0.0.1:5001/fave/delete-all', {
+        email: this.email,
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
 }

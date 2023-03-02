@@ -5,6 +5,9 @@
 />
 <button (click)="getSearch()">Search!</button>
 <button (click)="searchFavourites()">Display favourites</button>
+<button *ngIf="favouritesDisplay" (click)="deleteAllFavourites()">
+  delete all
+</button>
 
 <div *ngIf="!favouritesDisplay">
   <div *ngFor="let result of searchResult">
@@ -33,5 +36,6 @@
   <div *ngFor="let fave of favourites">
     <p>{{ fave.name }}</p>
     <img [src]="fave.image" alt="" (click)="getModal(fave)" />
+    <button (click)="deleteFavourites(fave)">delete</button>
   </div>
 </div>
