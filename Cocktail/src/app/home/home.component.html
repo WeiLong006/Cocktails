@@ -13,8 +13,42 @@
   [style.display]="display"
 />
 
-<button (click)="submitUserEmail()" [style.display]="display">
-  Log in here!
+<button (click)="logIn()" [style.display]="display">Log in here!</button>
+<button (click)="openModal()" [style.display]="display">
+  Create new account!
 </button>
+
+<!-- Modal -->
+<div *ngIf="createModalDisplay" class="modal">
+  <div class="modal-content">
+    <input
+      type="text"
+      (input)="getCreateName($event)"
+      placeholder="Name"
+      [style.display]="display"
+    />
+    <input
+      type="text"
+      (input)="getCreateEmail($event)"
+      placeholder="Email"
+      [style.display]="display"
+    />
+    <input
+      type="text"
+      (input)="getCreateMobile($event)"
+      placeholder="Mobile Number"
+      [style.display]="display"
+    />
+    <input
+      type="text"
+      (input)="getCreatePassword($event)"
+      placeholder="Password"
+      [style.display]="display"
+    />
+
+    <button (click)="closeModal()">Close</button>
+    <button (click)="createUser()">Sign Up!</button>
+  </div>
+</div>
 
 <app-admin-page *ngIf="role === 'admin'" [email]="email"></app-admin-page>

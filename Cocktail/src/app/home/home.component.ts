@@ -12,7 +12,7 @@ export interface Response {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   fetchData = { access: String };
   email = '';
   userDetails = {};
@@ -22,21 +22,18 @@ export class HomeComponent implements OnInit {
   role = '';
   display = 'block';
 
+  //create new user
+  createEmail = '';
+  createName = '';
+  createMobile = '';
+  createPassword = '';
+  createRole = 'normal';
+  createModalDisplay = false;
+
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    let headers = new HttpHeaders({});
-    this.http
-      .get<any>('http://127.0.0.1:5001/fave/favourites', {
-        headers: headers,
-      })
-      .subscribe((data) => {
-        console.log(data);
-      });
-  }
-
   logIn() {
-    let headers = new HttpHeaders({});
+    console.log(this.email);
     this.http
       .post<Response>('http://127.0.0.1:5001/users/sign-in', {
         email: this.email,
@@ -65,9 +62,44 @@ export class HomeComponent implements OnInit {
     this.password = e.target.value;
   }
 
-  submitUserEmail() {
-    this.userDetails = { email: this.email, password: this.password };
-    this.logIn();
-    console.log(this.userDetails);
+  // Create new user
+
+  getCreateEmail(e: any) {
+    this.createEmail = e.target.value;
+  }
+
+  getCreateName(e: any) {
+    this.createName = e.target.value;
+  }
+
+  getCreateMobile(e: any) {
+    this.createMobile = e.target.value;
+  }
+
+  getCreatePassword(e: any) {
+    this.createPassword = e.target.value;
+  }
+
+  createUser() {
+    this.http
+      .put<Response>('http://127.0.0.1:5001/users/create-user', {
+        email: this.createEmail,
+        name: this.createName,
+        mobile_number: this.createMobile,
+        password: this.createPassword,
+        role: this.createRole,
+      })
+      .subscribe((data) => {
+        console.log(data);
+        this.createModalDisplay = false;
+      });
+  }
+
+  openModal() {
+    this.createModalDisplay = true;
+  }
+
+  closeModal() {
+    this.createModalDisplay = false;
   }
 }
