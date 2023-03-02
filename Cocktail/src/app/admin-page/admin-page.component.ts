@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface Response {
@@ -11,10 +11,15 @@ export interface Response {
   styleUrls: ['./admin-page.component.css'],
 })
 export class AdminPageComponent {
+  //for search
   searchInput = '';
   searchResult: any;
   clickedImage: any = [];
   modalDisplay = false;
+
+  //for favourites
+  @Input() email = '';
+  favourites: any;
 
   getInput(e: any) {
     this.searchInput = e.target.value;
@@ -23,6 +28,7 @@ export class AdminPageComponent {
   getSearch() {
     // console.log(this.searchInput);
     this.searchCocktail();
+    console.log(this.email);
   }
 
   getModal(e: any) {
@@ -47,6 +53,17 @@ export class AdminPageComponent {
       .subscribe((data) => {
         this.searchResult = data;
         console.log(this.searchResult);
+      });
+  }
+
+  searchFavourites() {
+    this.http
+      .post<Response>('http://127.0.0.1:5001/fave/favourites', {
+        email: this.email,
+      })
+      .subscribe((data) => {
+        this.favourites = data;
+        console.log(this.favourites);
       });
   }
 }
