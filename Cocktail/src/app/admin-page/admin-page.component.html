@@ -7,5 +7,13 @@
 
 <div *ngFor="let result of searchResult">
   <p>{{ result.name }}</p>
-  <img [src]="result.image" alt="" />
+  <img [src]="result.image" alt="" (click)="getModal(result)" />
+</div>
+
+<!-- Modal -->
+<div *ngIf="modalDisplay" class="modal">
+  <div *ngFor="let clicked of clickedImage" class="modal-content">
+    {{ clicked.name }}
+    <button (click)="closeModal()">Close</button>
+  </div>
 </div>

@@ -12,8 +12,9 @@ export interface Response {
 })
 export class AdminPageComponent {
   searchInput = '';
-  // searchResult: any[] = [];
   searchResult: any;
+  clickedImage: any = [];
+  modalDisplay = false;
 
   getInput(e: any) {
     this.searchInput = e.target.value;
@@ -22,6 +23,17 @@ export class AdminPageComponent {
   getSearch() {
     // console.log(this.searchInput);
     this.searchCocktail();
+  }
+
+  getModal(e: any) {
+    this.modalDisplay = true;
+    this.clickedImage.push(e);
+    console.log(this.clickedImage);
+  }
+
+  closeModal() {
+    this.modalDisplay = false;
+    this.clickedImage.pop();
   }
 
   constructor(private http: HttpClient) {}
@@ -35,7 +47,6 @@ export class AdminPageComponent {
       .subscribe((data) => {
         this.searchResult = data;
         console.log(this.searchResult);
-        console.log(this.searchResult[0].image);
       });
   }
 }
