@@ -21,6 +21,7 @@ export class AdminPageComponent implements OnInit {
   @Input() email = '';
   favourites: any;
   favouritesDisplay = false;
+  confirmDeleteAll = false;
 
   getInput(e: any) {
     this.searchInput = e.target.value;
@@ -92,38 +93,45 @@ export class AdminPageComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log(data);
+        alert(`${e.name} has been added to your favourites!`);
+        this.closeModal();
       });
   }
 
   deleteFavourites(e: any) {
-    this.http
-      .post<Response>('http://127.0.0.1:5001/fave/delete-fave', {
-        email: this.email,
-        name: e.name,
-        category: e.category,
-        instruction: e.instruction,
-        glass: e.glass,
-        ingredient1: e.ingredient1,
-        ingredient2: e.ingredient2,
-        ingredient3: e.ingredient3,
-        ingredient4: e.ingredient4,
-        ingredient5: e.ingredient5,
-        image: e.image,
-      })
-      .subscribe((data) => {
-        this.searchFavourites();
-        console.log(data);
-      });
+    if (confirm(`Are you sure you wish to delete ${e.name}?`)) {
+      this.http
+        .post<Response>('http://127.0.0.1:5001/fave/delete-fave', {
+          email: this.email,
+          name: e.name,
+          category: e.category,
+          instruction: e.instruction,
+          glass: e.glass,
+          ingredient1: e.ingredient1,
+          ingredient2: e.ingredient2,
+          ingredient3: e.ingredient3,
+          ingredient4: e.ingredient4,
+          ingredient5: e.ingredient5,
+          image: e.image,
+        })
+        .subscribe((data) => {
+          this.searchFavourites();
+          console.log(data);
+          alert(`${e.name} has been deleted!`);
+        });
+    }
   }
 
   deleteAllFavourites() {
-    this.http
-      .post<Response>('http://127.0.0.1:5001/fave/delete-all', {
-        email: this.email,
-      })
-      .subscribe((data) => {
-        this.searchFavourites();
-        console.log(data);
-      });
+    if (confirm(`Are you sure you wish to delete all?`)) {
+      this.http
+        .post<Response>('http://127.0.0.1:5001/fave/delete-all', {
+          email: this.email,
+        })
+        .subscribe((data) => {
+          this.searchFavourites();
+          console.log(data);
+        });
+    }
   }
 }
