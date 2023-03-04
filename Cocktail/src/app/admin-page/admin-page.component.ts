@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface Response {
@@ -10,7 +10,7 @@ export interface Response {
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.css'],
 })
-export class AdminPageComponent {
+export class AdminPageComponent implements OnInit {
   //for search
   searchInput = '';
   searchResult: any;
@@ -44,6 +44,10 @@ export class AdminPageComponent {
   }
 
   constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.searchCocktail();
+  }
 
   searchCocktail() {
     let search = new HttpHeaders({ name: this.searchInput });

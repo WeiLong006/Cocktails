@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   templateUrl: './normal-user.component.html',
   styleUrls: ['./normal-user.component.css'],
 })
-export class NormalUserComponent {
+export class NormalUserComponent implements OnInit {
   //for search
   searchInput = '';
   searchResult: any;
@@ -31,6 +31,10 @@ export class NormalUserComponent {
   closeModal() {
     this.modalDisplay = false;
     this.clickedImage.pop();
+  }
+
+  ngOnInit(): void {
+    this.searchCocktail();
   }
 
   constructor(private http: HttpClient) {}
