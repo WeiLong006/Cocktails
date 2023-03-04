@@ -1,0 +1,26 @@
+<input
+  type="text"
+  placeholder="Enter cocktail name"
+  (input)="getInput($event)"
+/>
+
+<button (click)="getSearch()">Search!</button>
+
+<div *ngFor="let result of searchResult">
+  <p>{{ result.name }}</p>
+  <img [src]="result.image" alt="" (click)="getModal(result)" />
+</div>
+
+<!-- Modal -->
+<div *ngIf="modalDisplay" class="modal">
+  <div *ngFor="let clicked of clickedImage" class="modal-content">
+    <label> {{ clicked.name }} </label> <br />
+    <label *ngIf="clicked.ingredient1"> {{ clicked.ingredient1 }} </label><br />
+    <label *ngIf="clicked.ingredient2"> {{ clicked.ingredient2 }} </label><br />
+    <label *ngIf="clicked.ingredient3"> {{ clicked.ingredient3 }} </label><br />
+    <label *ngIf="clicked.ingredient4"> {{ clicked.ingredient4 }} </label><br />
+    <label *ngIf="clicked.ingredient5"> {{ clicked.ingredient5 }} </label><br />
+    <img class="modalImage" [src]="clicked.image" alt="" /> <br />
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

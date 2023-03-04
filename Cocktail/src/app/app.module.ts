@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { UserPageComponent } from './user-page/user-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { NormalUserComponent } from './normal-user/normal-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,8 +18,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    UserPageComponent,
     AdminPageComponent,
+    NormalUserComponent,
   ],
   imports: [
     BrowserModule,
