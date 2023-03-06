@@ -21,6 +21,7 @@ export class AdminPageComponent implements OnInit {
   //for favourites
   @Input() email = '';
   @Input() accessToken = '';
+  refreshToken = '';
   favourites: any;
   favouritesDisplay = false;
   confirmDeleteAll = false;
@@ -143,7 +144,19 @@ export class AdminPageComponent implements OnInit {
           this.closeModal();
         },
         error: (e) => {
-          console.log(e);
+          console.log(e.error.message);
+          // this.refreshToken = localStorage.getItem('refresh');
+          if (e.error.message == 'Expired') {
+            this.http
+              .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                refresh: localStorage.getItem('refresh'),
+              })
+              .subscribe((data) => {
+                console.log(data);
+
+                // this.accessToken = data.access;
+              });
+          }
         },
       });
   }
