@@ -46,10 +46,11 @@ export class HomeComponent {
         if (this.accessToken) {
           this.display = 'none';
         }
-        console.log(this.accessToken);
-        console.log(this.refreshToken);
+        localStorage.setItem('refresh', this.refreshToken);
+        // console.log(this.accessToken);
+        // console.log(this.refreshToken);
         console.log(this.role);
-        console.log(data);
+        console.log(localStorage.getItem('refresh'));
       });
   }
 

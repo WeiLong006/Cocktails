@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 export interface Response {
   name: any;
@@ -53,6 +54,7 @@ export class AdminPageComponent implements OnInit {
 
   searchCocktail() {
     const headers = new HttpHeaders({ authorization: this.accessToken });
+
     this.http
       .post<Response>(
         'http://127.0.0.1:5001/fave/search',
@@ -61,11 +63,33 @@ export class AdminPageComponent implements OnInit {
         },
         { headers }
       )
-      .subscribe((data) => {
-        this.favouritesDisplay = false;
-        this.searchResult = data;
-        console.log(this.searchResult);
-      });
+      .subscribe(
+        {
+          next: (data) => {
+            this.favouritesDisplay = false;
+            this.searchResult = data;
+            // console.log('error');
+            // console.log(data);
+          },
+          error: (e) => {
+            console.error(e);
+          },
+        }
+
+        // (data) => {
+        //   this.favouritesDisplay = false;
+        //   this.searchResult = data;
+        //   // console.log('error');
+        //   // console.log(data);
+        // },
+        // (err) => {
+        //   console.log('error', err);
+        //   // console.log(err);
+        // },
+        // () => {
+        //   console.log('third');
+        // }
+      );
   }
 
   searchFavourites() {
@@ -78,10 +102,15 @@ export class AdminPageComponent implements OnInit {
         },
         { headers }
       )
-      .subscribe((data) => {
-        this.favouritesDisplay = true;
-        this.favourites = data;
-        console.log(data);
+      .subscribe({
+        next: (data) => {
+          this.favouritesDisplay = true;
+          this.favourites = data;
+          console.log(data);
+        },
+        error: (e) => {
+          console.log(e);
+        },
       });
   }
 
@@ -107,10 +136,15 @@ export class AdminPageComponent implements OnInit {
         },
         { headers }
       )
-      .subscribe((data) => {
-        console.log(data);
-        alert(`${e.name} has been added to your favourites!`);
-        this.closeModal();
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          alert(`${e.name} has been added to your favourites!`);
+          this.closeModal();
+        },
+        error: (e) => {
+          console.log(e);
+        },
       });
   }
 
