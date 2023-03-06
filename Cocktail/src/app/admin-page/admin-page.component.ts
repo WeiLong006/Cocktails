@@ -19,6 +19,7 @@ export class AdminPageComponent implements OnInit {
 
   //for favourites
   @Input() email = '';
+  @Input() accessToken = '';
   favourites: any;
   favouritesDisplay = false;
   confirmDeleteAll = false;
@@ -51,11 +52,15 @@ export class AdminPageComponent implements OnInit {
   }
 
   searchCocktail() {
-    let search = new HttpHeaders({ name: this.searchInput });
+    const headers = new HttpHeaders({ authorization: this.accessToken });
     this.http
-      .post<Response>('http://127.0.0.1:5001/fave/search', {
-        name: this.searchInput,
-      })
+      .post<Response>(
+        'http://127.0.0.1:5001/fave/search',
+        {
+          name: this.searchInput,
+        },
+        { headers }
+      )
       .subscribe((data) => {
         this.favouritesDisplay = false;
         this.searchResult = data;
@@ -64,10 +69,15 @@ export class AdminPageComponent implements OnInit {
   }
 
   searchFavourites() {
+    const headers = new HttpHeaders({ authorization: this.accessToken });
     this.http
-      .post<Response>('http://127.0.0.1:5001/fave/favourites', {
-        email: this.email,
-      })
+      .post<Response>(
+        'http://127.0.0.1:5001/fave/favourites',
+        {
+          email: this.email,
+        },
+        { headers }
+      )
       .subscribe((data) => {
         this.favouritesDisplay = true;
         this.favourites = data;
@@ -77,31 +87,12 @@ export class AdminPageComponent implements OnInit {
 
   createFavourites(e: any) {
     console.log(e.name);
+    const headers = new HttpHeaders({ authorization: this.accessToken });
+    console.log(this.accessToken);
     this.http
-      .put<Response>('http://127.0.0.1:5001/fave/create-fave', {
-        email: this.email,
-        name: e.name,
-        category: e.category,
-        instruction: e.instruction,
-        glass: e.glass,
-        ingredient1: e.ingredient1,
-        ingredient2: e.ingredient2,
-        ingredient3: e.ingredient3,
-        ingredient4: e.ingredient4,
-        ingredient5: e.ingredient5,
-        image: e.image,
-      })
-      .subscribe((data) => {
-        console.log(data);
-        alert(`${e.name} has been added to your favourites!`);
-        this.closeModal();
-      });
-  }
-
-  deleteFavourites(e: any) {
-    if (confirm(`Are you sure you wish to delete ${e.name}?`)) {
-      this.http
-        .post<Response>('http://127.0.0.1:5001/fave/delete-fave', {
+      .put<Response>(
+        'http://127.0.0.1:5001/fave/create-fave',
+        {
           email: this.email,
           name: e.name,
           category: e.category,
@@ -113,7 +104,37 @@ export class AdminPageComponent implements OnInit {
           ingredient4: e.ingredient4,
           ingredient5: e.ingredient5,
           image: e.image,
-        })
+        },
+        { headers }
+      )
+      .subscribe((data) => {
+        console.log(data);
+        alert(`${e.name} has been added to your favourites!`);
+        this.closeModal();
+      });
+  }
+
+  deleteFavourites(e: any) {
+    const headers = new HttpHeaders({ authorization: this.accessToken });
+    if (confirm(`Are you sure you wish to delete ${e.name}?`)) {
+      this.http
+        .post<Response>(
+          'http://127.0.0.1:5001/fave/delete-fave',
+          {
+            email: this.email,
+            name: e.name,
+            category: e.category,
+            instruction: e.instruction,
+            glass: e.glass,
+            ingredient1: e.ingredient1,
+            ingredient2: e.ingredient2,
+            ingredient3: e.ingredient3,
+            ingredient4: e.ingredient4,
+            ingredient5: e.ingredient5,
+            image: e.image,
+          },
+          { headers }
+        )
         .subscribe((data) => {
           this.searchFavourites();
           console.log(data);
@@ -123,11 +144,16 @@ export class AdminPageComponent implements OnInit {
   }
 
   deleteAllFavourites() {
+    const headers = new HttpHeaders({ authorization: this.accessToken });
     if (confirm(`Are you sure you wish to delete all?`)) {
       this.http
-        .post<Response>('http://127.0.0.1:5001/fave/delete-all', {
-          email: this.email,
-        })
+        .post<Response>(
+          'http://127.0.0.1:5001/fave/delete-all',
+          {
+            email: this.email,
+          },
+          { headers }
+        )
         .subscribe((data) => {
           this.searchFavourites();
           console.log(data);

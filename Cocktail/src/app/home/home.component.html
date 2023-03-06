@@ -51,5 +51,9 @@
   </div>
 </div>
 
-<app-admin-page *ngIf="role === 'admin'" [email]="email"></app-admin-page>
-<app-normal-user *ngIf="role === 'normal'"></app-normal-user>
+<app-admin-page
+  *ngIf="role === 'admin'"
+  [email]="email"
+  [accessToken]="accessToken"
+></app-admin-page>
+<app-normal-user *ngIf="role === 'normal'" [accessToken]="accessToken" ></app-normal-user>

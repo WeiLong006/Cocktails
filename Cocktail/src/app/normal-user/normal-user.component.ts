@@ -12,6 +12,7 @@ export class NormalUserComponent implements OnInit {
   searchResult: any;
   clickedImage: any = [];
   modalDisplay: any;
+  @Input() accessToken = ""
 
   getInput(e: any) {
     this.searchInput = e.target.value;
@@ -40,11 +41,15 @@ export class NormalUserComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   searchCocktail() {
-    let search = new HttpHeaders({ name: this.searchInput });
+    const headers = new HttpHeaders({ authorization: this.accessToken });
     this.http
-      .post<Response>('http://127.0.0.1:5001/fave/search', {
-        name: this.searchInput,
-      })
+      .post<Response>(
+        'http://127.0.0.1:5001/fave/search',
+        {
+          name: this.searchInput,
+        },
+        { headers }
+      )
       .subscribe((data) => {
         this.searchResult = data;
         console.log(this.searchResult);
