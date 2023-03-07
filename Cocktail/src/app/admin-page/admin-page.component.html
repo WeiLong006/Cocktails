@@ -25,6 +25,8 @@
     <label *ngIf="clicked.ingredient3"> {{ clicked.ingredient3 }} </label><br />
     <label *ngIf="clicked.ingredient4"> {{ clicked.ingredient4 }} </label><br />
     <label *ngIf="clicked.ingredient5"> {{ clicked.ingredient5 }} </label><br />
+    <label *ngIf="clicked.instruction"> {{ clicked.instruction }} </label
+    ><br />
     <img class="modalImage" [src]="clicked.image" alt="" /> <br />
     <button (click)="createFavourites(clicked)">Add to favourites</button>
     <button (click)="closeModal()">Close</button>

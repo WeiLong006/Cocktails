@@ -105,6 +105,7 @@ export class AdminPageComponent implements OnInit {
 
                 this.accessToken = (<any>data).access;
                 console.log(this.accessToken);
+                this.searchFavourites();
               });
           } else {
             alert(e.error.message);

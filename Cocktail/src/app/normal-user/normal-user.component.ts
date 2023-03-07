@@ -67,6 +67,7 @@ export class NormalUserComponent implements OnInit {
 
                 this.accessToken = (<any>data).access;
                 console.log(this.accessToken);
+                this.searchCocktail();
               });
           } else {
             alert(e.error.message);
