@@ -116,9 +116,9 @@ export class AdminPageComponent implements OnInit {
   }
 
   createFavourites(e: any) {
-    console.log(e.name);
-    const headers = new HttpHeaders({ authorization: this.accessToken });
     console.log(this.accessToken);
+    const headers = new HttpHeaders({ authorization: this.accessToken });
+    // console.log(this.accessToken);
     this.http
       .put<Response>(
         'http://127.0.0.1:5001/fave/create-fave',
@@ -139,8 +139,8 @@ export class AdminPageComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
-          alert(`${e.name} has been added to your favourites!`);
+          // console.log(data);
+          alert(`${data.name} has been added to your favourites!`);
           this.closeModal();
         },
         error: (e) => {
@@ -152,9 +152,10 @@ export class AdminPageComponent implements OnInit {
                 refresh: localStorage.getItem('refresh'),
               })
               .subscribe((data) => {
-                console.log(data);
+                // console.log((<any>data).access);
 
-                // this.accessToken = data.access;
+                this.accessToken = (<any>data).access;
+                console.log(this.accessToken);
               });
           }
         },
