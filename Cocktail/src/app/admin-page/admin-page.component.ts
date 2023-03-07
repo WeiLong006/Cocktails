@@ -64,33 +64,17 @@ export class AdminPageComponent implements OnInit {
         },
         { headers }
       )
-      .subscribe(
-        {
-          next: (data) => {
-            this.favouritesDisplay = false;
-            this.searchResult = data;
-            // console.log('error');
-            // console.log(data);
-          },
-          error: (e) => {
-            console.error(e);
-          },
-        }
-
-        // (data) => {
-        //   this.favouritesDisplay = false;
-        //   this.searchResult = data;
-        //   // console.log('error');
-        //   // console.log(data);
-        // },
-        // (err) => {
-        //   console.log('error', err);
-        //   // console.log(err);
-        // },
-        // () => {
-        //   console.log('third');
-        // }
-      );
+      .subscribe({
+        next: (data) => {
+          this.favouritesDisplay = false;
+          this.searchResult = data;
+          // console.log('error');
+          // console.log(data);
+        },
+        error: (e) => {
+          console.error(e);
+        },
+      });
   }
 
   searchFavourites() {
@@ -111,6 +95,20 @@ export class AdminPageComponent implements OnInit {
         },
         error: (e) => {
           console.log(e);
+          if (e.error.message == 'Expired') {
+            this.http
+              .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                refresh: localStorage.getItem('refresh'),
+              })
+              .subscribe((data) => {
+                // console.log((<any>data).access);
+
+                this.accessToken = (<any>data).access;
+                console.log(this.accessToken);
+              });
+          } else {
+            alert(e.error.message);
+          }
         },
       });
   }
@@ -157,6 +155,8 @@ export class AdminPageComponent implements OnInit {
                 this.accessToken = (<any>data).access;
                 console.log(this.accessToken);
               });
+          } else {
+            alert(e.error.message);
           }
         },
       });
@@ -183,10 +183,28 @@ export class AdminPageComponent implements OnInit {
           },
           { headers }
         )
-        .subscribe((data) => {
-          this.searchFavourites();
-          console.log(data);
-          alert(`${e.name} has been deleted!`);
+        .subscribe({
+          next: (data) => {
+            this.searchFavourites();
+            console.log(data);
+            alert(`${e.name} has been deleted!`);
+          },
+          error: (e) => {
+            if (e.error.message == 'Expired') {
+              this.http
+                .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                  refresh: localStorage.getItem('refresh'),
+                })
+                .subscribe((data) => {
+                  // console.log((<any>data).access);
+
+                  this.accessToken = (<any>data).access;
+                  console.log(this.accessToken);
+                });
+            } else {
+              alert(e.error.message);
+            }
+          },
         });
     }
   }
@@ -202,9 +220,25 @@ export class AdminPageComponent implements OnInit {
           },
           { headers }
         )
-        .subscribe((data) => {
-          this.searchFavourites();
-          console.log(data);
+        .subscribe({
+          next: (data) => {
+            this.searchFavourites();
+            console.log(data);
+          },
+          error: (e) => {
+            if (e.error.message == 'Expired') {
+              this.http
+                .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                  refresh: localStorage.getItem('refresh'),
+                })
+                .subscribe((data) => {
+                  this.accessToken = (<any>data).access;
+                  console.log(this.accessToken);
+                });
+            } else {
+              alert(e.error.message);
+            }
+          },
         });
     }
   }

@@ -12,7 +12,7 @@ export class NormalUserComponent implements OnInit {
   searchResult: any;
   clickedImage: any = [];
   modalDisplay: any;
-  @Input() accessToken = ""
+  @Input() accessToken = '';
 
   getInput(e: any) {
     this.searchInput = e.target.value;
@@ -50,9 +50,28 @@ export class NormalUserComponent implements OnInit {
         },
         { headers }
       )
-      .subscribe((data) => {
-        this.searchResult = data;
-        console.log(this.searchResult);
+      .subscribe({
+        next: (data) => {
+          this.searchResult = data;
+          console.log(this.searchResult);
+        },
+        error: (e) => {
+          console.log(e);
+          if (e.error.message == 'Expired') {
+            this.http
+              .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                refresh: localStorage.getItem('refresh'),
+              })
+              .subscribe((data) => {
+                // console.log((<any>data).access);
+
+                this.accessToken = (<any>data).access;
+                console.log(this.accessToken);
+              });
+          } else {
+            alert(e.error.message);
+          }
+        },
       });
   }
 }
