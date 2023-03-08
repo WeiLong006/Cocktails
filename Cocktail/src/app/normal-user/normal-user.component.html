@@ -6,8 +6,8 @@
 
 <button (click)="getSearch()">Search!</button>
 
-<div *ngFor="let result of searchResult">
-  <p>{{ result.name }}</p>
+<div *ngFor="let result of searchResult" class="menu__container">
+  <p class="menu">{{ result.name }}</p>
   <img [src]="result.image" alt="" (click)="getModal(result)" />
 </div>
 
