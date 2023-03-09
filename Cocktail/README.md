@@ -1,27 +1,55 @@
-# Cocktail
+# Cocktails
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+Cocktails aims to serve anyone anywhere who has a need to look for cocktail recipes and grants them convinient access to it. Users could be professional bartenders who could now do away with physical notes all the way till people at house parties who wish to make their own cocktails. Normal users would be able to search for cocktails while paid users will be able to create their own favourites list!
 
-## Development server
+This repository is for the frontend. You may find the backend repository [HERE](https://github.com/WeiLong006/Project_4_backend).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<kbd>![LogIn ](/public/login.png) </kbd>
+<kbd>![Normal_User ](/public/normal_user.png) </kbd>
+<kbd>![Paid_User ](/public/paid_user.png) </kbd>
 
-## Code scaffolding
+## Technologies Used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Angular for frontend.
+2. MongoDB as the database for the backend.
+3. Express for the middleware.
+4. Tailwind.
+5. Angular-JWT.
+6. Angular animations.
 
-## Build
+## Hierarchy
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<kbd>![Paid User Heirachy](/public/paid_user_heirachy.png)</kbd>
+<kbd>![Normal User Heirachy](/public/normal_user_heirachy.png)</kbd>
 
-## Running unit tests
+## User Stories
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Users should be able to:
 
-## Running end-to-end tests
+1. Login with their email and password
+2. Search using names or part of the names of cocktails
+3. Access the recipe
+4. Paid users are able to create a favourites list tag to their personal email.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## General Approach
 
-## Further help
+1. Started out by drawing out the hierarchy of the site
+2. Worked on the schema and started seeding the data
+3. Used postman to test the endpoints until all endpoints were successful
+4. Started with login page followed by the paid user page
+5. Once the paid user age and functions were completed, started on the normal user page.
+6. Worked on base CSS styling for background and buttons using tailwind.
+7. Explored further CSS styling
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Limitations & Future work
+
+- Touch up the styling
+- Seed more data into the cocktail database
+- Creating authenticated pages for admin users to maintain the site (eg. adding new cocktails or managing users)
+- Research on how to upload pictures into the database
+
+## References
+
+- Font animation [HERE](https://alvarotrigo.com/blog/css-text-animations/)
+- Background animation by Manuel Pinto [HERE](https://codepen.io/P1N2O/pen/pyBNzX)
+- Card animation by Yasha Arora [HERE](https://codepen.io/zwattic/pen/mKGRYm)
