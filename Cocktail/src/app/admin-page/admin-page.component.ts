@@ -72,22 +72,7 @@ export class AdminPageComponent implements OnInit {
           // console.log(data);
         },
         error: (e) => {
-          console.log(e);
-          if (e.error.message == 'Expired') {
-            this.http
-              .post<Response>('http://127.0.0.1:5001/users/refresh', {
-                refresh: localStorage.getItem('refresh'),
-              })
-              .subscribe((data) => {
-                // console.log((<any>data).access);
-
-                this.accessToken = (<any>data).access;
-                console.log(this.accessToken);
-                this.searchCocktail();
-              });
-          } else {
-            alert(e.error.message);
-          }
+          console.error(e);
         },
       });
   }
