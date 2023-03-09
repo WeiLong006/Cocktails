@@ -3,23 +3,15 @@
     type="text"
     placeholder="Enter cocktail name"
     (input)="getInput($event)"
+    class="top-0 mr-4"
   />
-
   <button
     (click)="getSearch()"
-    class="ml-2 text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+    class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
   >
     Search!
   </button>
-  <button
-    class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-  >
-    Update Password
-  </button>
 </div>
-
-
-
 <div class="flex justify-center items-center flex-wrap">
   <div *ngFor="let result of searchResult" class="menu__container">
     <p class="menu">{{ result.name }}</p>
@@ -38,6 +30,11 @@
     <label *ngIf="clicked.ingredient5"> {{ clicked.ingredient5 }} </label><br />
     <label *ngIf="clicked.instruction"> {{ clicked.instruction }} </label><br />
     <img class="modalImage" [src]="clicked.image" alt="" /> <br />
-    <button (click)="closeModal()">Close</button>
+    <button
+      (click)="closeModal()"
+      class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+    >
+      Close
+    </button>
   </div>
 </div>
