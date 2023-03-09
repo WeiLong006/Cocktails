@@ -26,6 +26,11 @@ export class AdminPageComponent implements OnInit {
   favouritesDisplay = false;
   confirmDeleteAll = false;
 
+  //for update password
+  passwordModalDisplay: any;
+  newPassword = '';
+
+  //for search
   getInput(e: any) {
     this.searchInput = e.target.value;
   }
@@ -44,7 +49,17 @@ export class AdminPageComponent implements OnInit {
 
   closeModal() {
     this.modalDisplay = false;
+    this.passwordModalDisplay = false;
     this.clickedImage.pop();
+  }
+
+  // functions for update password
+  getNewPassword(e: any) {
+    this.newPassword = e.target.value;
+  }
+
+  getPasswordModal() {
+    this.passwordModalDisplay = true;
   }
 
   constructor(private http: HttpClient) {}
@@ -257,5 +272,42 @@ export class AdminPageComponent implements OnInit {
           },
         });
     }
+  }
+
+  updatePassword() {
+    const headers = new HttpHeaders({ authorization: this.accessToken });
+    this.http
+      .patch<Response>(
+        'http://127.0.0.1:5001/users/update-password',
+        {
+          email: this.email,
+          password: this.newPassword,
+        },
+        { headers }
+      )
+      .subscribe({
+        next: (data) => {
+          alert(data);
+          this.closeModal();
+        },
+        error: (e) => {
+          console.log(e);
+          if (e.error.message == 'Expired') {
+            this.http
+              .post<Response>('http://127.0.0.1:5001/users/refresh', {
+                refresh: localStorage.getItem('refresh'),
+              })
+              .subscribe((data) => {
+                // console.log((<any>data).access);
+
+                this.accessToken = (<any>data).access;
+                console.log(this.accessToken);
+                this.updatePassword();
+              });
+          } else {
+            alert(e.error.message);
+          }
+        },
+      });
   }
 }

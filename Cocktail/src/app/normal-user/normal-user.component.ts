@@ -105,7 +105,8 @@ export class NormalUserComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
+          alert(data);
+          this.closeModal();
         },
         error: (e) => {
           console.log(e);
