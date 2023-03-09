@@ -84,6 +84,7 @@
     ></app-admin-page>
     <app-normal-user
       *ngIf="role === 'normal'"
+      [email]="email"
       [accessToken]="accessToken"
     ></app-normal-user>
   </div>
