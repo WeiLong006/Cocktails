@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { NormalUserComponent } from './normal-user/normal-user.component';
+import { IzharComponent } from './izhar/izhar.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
     HomeComponent,
     AdminPageComponent,
     NormalUserComponent,
+    IzharComponent,
   ],
   imports: [
     BrowserModule,

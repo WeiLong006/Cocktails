@@ -76,9 +76,12 @@
     </div>
 
     <!-- Favourites -->
-    <div *ngIf="favouritesDisplay">
-      <div *ngFor="let fave of favourites">
-        <p>{{ fave.name }}</p>
+    <div
+      *ngIf="favouritesDisplay"
+      class="flex justify-center items-center flex-wrap"
+    >
+      <div *ngFor="let fave of favourites" class="menu__container">
+        <p class="menu">{{ fave.name }}</p>
         <img [src]="fave.image" alt="" (click)="getModal(fave)" />
         <button
           (click)="deleteFavourites(fave)"
